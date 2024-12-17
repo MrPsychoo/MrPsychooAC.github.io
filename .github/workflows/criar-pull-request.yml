@@ -1,7 +1,7 @@
 name: Criar Pull Request
 
 on:
-  discussion:
+  push:
     branches-ignore: main
 
 jobs:
@@ -15,5 +15,5 @@ jobs:
         uses: devops-infra/action-pull-request@v0.5.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: main
+          target_branch: master
           title: Criação automatica do pull request
