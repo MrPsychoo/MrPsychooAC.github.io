@@ -1,0 +1,46 @@
+# Esse workflow verifica os links dos arquivos se estão ok e realiza o build e deploy
+name: Verifica os links do site
+
+on: [push, pull_request]
+
+jobs:
+  # Verifica Link job
+  link_checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Install Link Checker
+        run: sudo apt-get install linkchecker
+      - name: Run Link Checker
+        run: linkchecker https://mrpsychoo.github.io/MrPsychoo2.github.io/
+      - name: Check links in Markdown files
+        run: linkchecker --file-output=csv --verbose --check-extern markdown/*.md
+
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
