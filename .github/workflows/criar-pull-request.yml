@@ -10,20 +10,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Set up Git
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
+      - name: Extraindo os arquivos de commit
+        uses: rlespinasse/git-commit-data-action@v1.x
 
-      - name: Make changes
-        run: |
-          # Faça as alterações necessárias aqui, por exemplo:
-          echo "Alguma mudança" > arquivo.txt
-          git add .
-          git commit -m "Realizando alterações automáticas"
-
-      - name: Push changes
-        run: git push origin main
+      - name: Informações do autor do commit
+        run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
 
       - name: Create Pull Request
         uses: actions/github-script@v4
