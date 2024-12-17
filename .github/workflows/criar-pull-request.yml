@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: checking out code
         uses: actions/checkout@v2
 
       - name: Extraindo os arquivos de commit
@@ -16,16 +16,14 @@ jobs:
       - name: Informações do autor do commit
         run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
 
-      - name: Create Pull Request
-        uses: actions/github-script@v4
+      - name: Criar pull request
+        uses: peter-evans/create-pull-request@v3
         with:
-          script: |
-            const { data: pullRequest } = await github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'Atualizações automáticas',
-              body: 'Este pull request contém atualizações automáticas.',
-              head: 'main',
-              base: 'main'
-            });
-            console.log(`Pull request criado: ${pullRequest.html_url}`);
+          branch: "at-pull-request"
+          base: main
+          title: "Branche automatica pull request"
+          committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <$<{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
+          author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
+          body:
+            Branche criada automaticamente em pull request para validação
+          token: ${{ secrets.GITHUB_TOKEN }}
