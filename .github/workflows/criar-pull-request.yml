@@ -7,21 +7,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checking out code
+      - name: Check out repository
         uses: actions/checkout@v2
- 
+
       - name: Set up Git
-        run: | 
+        run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
 
-      - name: Extraindo os arquivos de commit
-        uses: rlespinasse/git-commit-data-action@v1.x
+      - name: Make changes
+        run: |
+          # Faça as alterações necessárias aqui, por exemplo:
+          echo "Alguma mudança" > arquivo.txt
+          git add .
+          git commit -m "Realizando alterações automáticas"
+
+      - name: Push changes
+        run: git push origin main
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: actions/github-script@v4
         with:
-          branch: "main"
-          title: "Atualizações automáticas"
-          body: "Este pull request contém atualizações automáticas."
-          committer: "github-actions <github-actions@github.com>"
+          script: |
+            const { data: pullRequest } = await github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Atualizações automáticas',
+              body: 'Este pull request contém atualizações automáticas.',
+              head: 'main',
+              base: 'main'
+            });
+            console.log(`Pull request criado: ${pullRequest.html_url}`);
