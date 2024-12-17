@@ -1,0 +1,40 @@
+name: Criar Pull Request
+
+on: [push]
+
+jobs:
+  create_pull_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Make changes
+        run: |
+          # Faça as alterações necessárias aqui, por exemplo:
+          echo "Alguma mudança" > arquivo.txt
+          git add .
+          git commit -m "Realizando alterações automáticas"
+
+      - name: Push changes
+        run: git push origin main
+
+      - name: Create Pull Request
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const { data: pullRequest } = await github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Atualizações automáticas',
+              body: 'Este pull request contém atualizações automáticas.',
+              head: 'main',
+              base: 'main'
+            });
+            console.log(`Pull request criado: ${pullRequest.html_url}`);
