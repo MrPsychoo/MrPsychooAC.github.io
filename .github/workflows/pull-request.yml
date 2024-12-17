@@ -1,7 +1,7 @@
 name: Criar Pull Request
 
 on:
-  push:
+  member:
     branches-ignore: main
 
 jobs:
