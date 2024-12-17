@@ -15,7 +15,7 @@ jobs:
       - name: Criando pull request
         uses: repo-sync/pull-request@v2
         with:
-          destination_branch: "arquivos_fix"
+          destination_branch: "master"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "auto pull request"
           pr_title: "pull request para validação"
