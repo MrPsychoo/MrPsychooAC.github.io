@@ -1,19 +1,16 @@
 name: Criar Pull Request
-
-on: [push]
-
+on:
+  push:
+    branches-ignore: main
 jobs:
-  create-pull-request:
+  action-pull-request:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repository code
+      - name: Verificação do código
         uses: actions/checkout@v2
-    
-      - name: Criando pull request
-        uses: repo-sync/pull-request@v2
+  
+      - name: Criar pull request auto
+        uses: devops-infra/action-pull-request@v0.5.5
         with:
-          destination_branch: "auto-pull-request"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_label: "auto pull request"
-          pr_title: "pull request para validação"
+          title: Criação automatica do pull request
