@@ -1,7 +1,10 @@
 # Esse workflow verifica os links dos arquivos se estão ok e realiza o build e deploy
 name: Verifica os links do site
 
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - main
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
