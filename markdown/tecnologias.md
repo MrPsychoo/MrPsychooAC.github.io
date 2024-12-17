@@ -36,7 +36,7 @@ layout: default
 
 - ### Rust
   - **Descrição**: Uma linguagem de programação de sistemas que foca na segurança e desempenho, especialmente para sistemas embarcados e servidores.
-  - **Fonte**: [uds.com.br](https://uds.com.br/blog/tecnologias-mais-usadas-desenvolvimento-software)
+  - **Fonte**: [uds.com.br](https://ias-mais-usadas-desenvolvimento-software)
 
 - ### Python
   - **Descrição**: Uma linguagem de programação de alto nível conhecida por sua simplicidade e legibilidade, amplamente usada para desenvolvimento web, análise de dados e automação.
@@ -44,7 +44,7 @@ layout: default
 
 - ### C#
   - **Descrição**: Uma linguagem de programação desenvolvida pela Microsoft, usada principalmente para desenvolvimento de aplicativos Windows e jogos.
-  - **Fonte**: [uds.com.br](https://uds.com.br/blog/tecnologias-mais-usadas-desenvolvimento-software)
+  - **Fonte**: [uds.com.br](https://volvimento-software)
 
 - ### Flutter
   - **Descrição**: Um framework de interface de usuário da Google para construir aplicativos móveis de alta qualidade a partir de uma única base de código.
